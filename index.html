@@ -34,6 +34,82 @@
       min-height: 100vh;
     }
 
+    /* Contenedor del selector ES / EN */
+.lang-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  padding: 3px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.08), rgba(0, 0, 0, 0.6));
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(10px);
+}
+
+/* Botón base */
+.lang-btn {
+  position: relative;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition:
+    background 0.18s ease,
+    color 0.18s ease,
+    box-shadow 0.18s ease,
+    transform 0.12s ease,
+    opacity 0.18s ease;
+  opacity: 0.7;
+  white-space: nowrap;
+}
+
+/* Hover estado no activo */
+.lang-btn:hover {
+  opacity: 1;
+  transform: translateY(-1px);
+}
+
+/* Estado activo (idioma seleccionado) */
+.lang-btn.active {
+  background: linear-gradient(135deg, #ff7ac4, #ffb86c);
+  color: #0b0b10;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.3),
+    0 10px 25px rgba(0, 0, 0, 0.55);
+  opacity: 1;
+}
+
+/* Pequeño “focus ring” accesible */
+.lang-btn:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.6);
+  outline-offset: 2px;
+}
+
+/* Ajuste en pantallas pequeñas: juntar un poco con el resto */
+@media (max-width: 640px) {
+  .top-bar {
+    gap: 0.75rem;
+  }
+
+  .lang-switch {
+    order: 3; /* opcional: coloca el selector más al final en móvil */
+  }
+
+  .lang-btn {
+    padding: 5px 12px;
+    font-size: 10px;
+  }
+}
+
+
     a { color: inherit; text-decoration: none; }
 
     .page {
@@ -736,33 +812,42 @@
 <body>
   <div class="page">
     <!-- TOP BAR -->
-    <header class="top-bar">
-      <div class="brand">NATALIA TEGEL – VIDEO & PHOTOGRAPHY PORTFOLIO</div>
+    <header class=" top-bar">
+      <div class="brand" id="brand">
+        NATALIA TEGEL – VIDEO & PHOTOGRAPHY PORTFOLIO
+      </div>
+
+      <!-- LANGUAGE SWITCH -->
+      <div class="lang-switch">
+        <button class="lang-btn active" data-lang="es">ES</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+      </div>
+
       <a href="Natalia_Tegel_CV.pdf" class="resume-btn" download>
         <span class="icon">⬇</span>
-        <span>Currículum</span>
+        <span id="resumeBtnText">Currículum</span>
       </a>
     </header>
 
     <!-- HERO -->
     <section class="hero">
-      <div class="hero-tag">Video Editor & Filmmaker</div>
-      <div class="hero-title">
+      <div class="hero-tag" id="heroTag">Video Editor & Filmmaker</div>
+      <div class="hero-title" id="heroTitle">
         Hola, soy <span class="highlight">Natalia</span>
       </div>
-      <p class="hero-subtitle">
+      <p class="hero-subtitle" id="heroSubtitle1">
         Soy editora de vídeo y videógrafa, enfocada en proyectos digitales, esports y contenido para creadores.
         Me gusta convertir ideas en historias claras a través del montaje y el diseño, siempre buscando un estilo propio.
       </p>
-      <p class="hero-subtitle">
+      <p class="hero-subtitle" id="heroSubtitle2">
         Tengo una debilidad por los documentales de esports: me encanta capturar momentos y convertirlos en recuerdos que duren.
         Pongo creatividad, técnica y mucho cariño en cada proyecto que edito.
       </p>
-      <p class="hero-contact">
+      <p class="hero-contact" id="heroContact">
         ¿Hablamos?<br />
-        Escríbeme a <a href="mailto:nataliategel@hotmail.es">nataliategel@hotmail.es</a> o mándame un mensaje por redes @nattcrow.
+        Escríbeme a <a href="mailto:nataliategel@hotmail.es">nataliategel@hotmail.es</a> o mándame un mensaje por redes.
       </p>
-      <p class="hero-line">
+      <p class="hero-line" id="heroLine">
         <b>Desliza hacia abajo</b> para ver mis proyectos.
       </p>
     </section>
@@ -770,14 +855,16 @@
     <!-- SECTION HEADER + SWITCH -->
     <div class="section-header" id="listControls">
       <div class="projects-heading">
-        <div class="projects-title">MIS PROYECTOS</div>
-        <div class="projects-subtitle">Desliza hacia abajo para ver mis proyectos</div>
+        <div class="projects-title" id="projectsTitle">MIS PROYECTOS</div>
+        <div class="projects-subtitle" id="projectsSubtitle">
+          Desliza hacia abajo para ver mis proyectos
+        </div>
       </div>
 
       <div class="toggle-pill videos-active" id="mediaToggle">
         <div class="toggle-bg"></div>
-        <button class="toggle-btn active" data-target="videos">Videos</button>
-        <button class="toggle-btn" data-target="photos">Fotos</button>
+        <button class="toggle-btn active" data-target="videos" id="toggleVideos">Videos</button>
+        <button class="toggle-btn" data-target="photos" id="togglePhotos">Fotos</button>
       </div>
     </div>
 
@@ -826,7 +913,7 @@
         </div>
 
         <div class="detail-side">
-          <div class="detail-cargos-title">Cargos</div>
+          <div class="detail-cargos-title" id="detailCargosTitle">Cargos</div>
           <ul class="detail-cargos-list" id="detailCargos"></ul>
         </div>
       </div>
@@ -835,60 +922,60 @@
     <!-- ABOUT / CONTACT -->
     <section class="about">
       <div>
-        <h3>Sobre mí</h3>
-        <p>
+        <h3 id="aboutTitle">Sobre mí</h3>
+        <p id="aboutP1">
           Soy Natalia, editora de vídeo y videógrafa. He trabajado en proyectos para creadores, marcas y eventos,
           y aunque me encanta contar historias a través de documentales, también puedo adaptarme a cualquier tipo
           de proyecto audiovisual: desde piezas corporativas, marcas y contenido para redes, hasta videoclips,
           entrevistas o proyectos más experimentales.
         </p>
-        <p>
+        <p id="aboutP2">
           Me manejo con fluidez en Adobe Premiere y tengo experiencia en otros programas como After Effects,
           Photoshop, Lightroom y DaVinci Resolve. Me encanta experimentar con grafismos, explorar nuevos estilos
           visuales y buscar siempre ese detalle que hace que una pieza destaque.
         </p>
-        <p>
+        <p id="aboutP3">
           Si tienes un proyecto que necesite ritmo, personalidad y cariño en la postproducción, podemos construirlo juntas.
         </p>
       </div>
       <div>
-        <h3>Experiencia reciente</h3>
+        <h3 id="expTitle">Experiencia reciente</h3>
 
-        <p class="experience-role">
+        <p class="experience-role" id="expRole1Block">
           Filmmaker &amp; Video Editor — Movistar KOI / Mira Broadcast<br>
           <strong>Ene 2024 – Oct 2025 | Madrid – Berlín</strong>
         </p>
-        <p>
+        <p id="expRole1P1">
           Entré como becaria a principios de 2024 y, gracias a mi trabajo y aportación creativa, pasé a contrato indefinido.
           Mis principales funciones fueron edición de vídeo, cámara y apoyo en guion.
         </p>
-        <p>
+        <p id="expRole1P2">
           Participé en la cobertura y producción de diversos eventos de esports, trabajando como cámara o editora en
           proyectos como el Call of Duty Major (con Toronto Ultra), LEC Roadtrip, Spring Split, MSI y LEC Finals 2025.
         </p>
-        <p>
+        <p id="expRole1P3">
           Además, formé parte de múltiples rodajes con los creadores de contenido del club, colaborando como asistente de
           cámara y técnica, y editando todas esas piezas. También desarrollé propuestas propias, como el anuncio del TFT
           para EWC, donde dirigí el rodaje y escribí la idea.
         </p>
 
-        <p class="experience-role">
+        <p class="experience-role" id="expRole2Block">
           Trabajo independiente en RRSS / Audiovisual<br>
           <strong>Twitch y otros — 2019–2025</strong>
         </p>
-        <p>
+        <p id="expRole2P1">
           Creadora de contenido en Twitch, TikTok y YouTube, realizando directos, podcasts y formatos propios,
           alcanzando más de 2.000 seguidores y hasta 300+ espectadores simultáneos.
         </p>
-        <p>
+        <p id="expRole2P2">
           He editado mis propios proyectos y colaborado como editora y cámara con otros creadores, como Abby.
         </p>
 
-        <div class="contact">
+        <div class="contact" id="contactBlock">
           ¿Hablamos?<br />
           Escríbeme a
           <a href="mailto:nataliategel@hotmail.es">nataliategel@hotmail.es</a>
-          o mándame un mensaje por redes <a href="https://x.com/NattCrow">@NattCrow.
+          o mándame un mensaje por redes <a href="https://x.com/NattCrow">@NattCrow.</a>
         </div>
       </div>
     </section>
@@ -906,229 +993,545 @@
 
   <script>
     /* ============================
-       DATA: PROYECTOS DE VÍDEO
+       MULTI-IDIOMA
+       ============================ */
+
+    let currentLang = "es";
+
+    const i18nStatic = {
+      es: {
+        brand: "NATALIA TEGEL – VIDEO & PHOTOGRAPHY PORTFOLIO",
+        resumeBtn: "Currículum",
+        heroTag: "Video Editor & Filmmaker",
+        heroTitle: "Hola, soy <span class=\"highlight\">Natalia</span>",
+        heroSubtitle1:
+          "Soy editora de vídeo y videógrafa, enfocada en proyectos digitales, esports y contenido para creadores. " +
+          "Me gusta convertir ideas en historias claras a través del montaje y el diseño, siempre buscando un estilo propio.",
+        heroSubtitle2:
+          "Tengo una debilidad por los documentales de esports: me encanta capturar momentos y convertirlos en recuerdos que duren. " +
+          "Pongo creatividad, técnica y mucho cariño en cada proyecto que edito.",
+        heroContact:
+          "¿Hablamos?<br />" +
+          "Escríbeme a <a href=\"mailto:nataliategel@hotmail.es\">nataliategel@hotmail.es</a> o mándame un mensaje por redes.",
+        heroLine: "<b>Desliza hacia abajo</b> para ver mis proyectos.",
+        projectsTitle: "MIS PROYECTOS",
+        projectsSubtitle: "Desliza hacia abajo para ver mis proyectos",
+        toggleVideos: "Videos",
+        togglePhotos: "Fotos",
+        btnBack: "← Volver al listado",
+        btnNext: "Siguiente proyecto →",
+        detailCargosTitle: "Cargos",
+        detailSummaryPrefix: "Resumen del proyecto:",
+        cardTagVideo: "Video",
+        aboutTitle: "Sobre mí",
+        aboutP1:
+          "Soy Natalia, editora de vídeo y videógrafa. He trabajado en proyectos para creadores, marcas y eventos, " +
+          "y aunque me encanta contar historias a través de documentales, también puedo adaptarme a cualquier tipo " +
+          "de proyecto audiovisual: desde piezas corporativas, marcas y contenido para redes, hasta videoclips, " +
+          "entrevistas o proyectos más experimentales.",
+        aboutP2:
+          "Me manejo con fluidez en Adobe Premiere y tengo experiencia en otros programas como After Effects, " +
+          "Photoshop, Lightroom y DaVinci Resolve. Me encanta experimentar con grafismos, explorar nuevos estilos " +
+          "visuales y buscar siempre ese detalle que hace que una pieza destaque.",
+        aboutP3:
+          "Si tienes un proyecto que necesite ritmo, personalidad y cariño en la postproducción, podemos construirlo juntas.",
+        expTitle: "Experiencia reciente",
+        expRole1Block:
+          "Filmmaker &amp; Video Editor — Movistar KOI / Mira Broadcast<br>" +
+          "<strong>Ene 2024 – Oct 2025 | Madrid – Berlín</strong>",
+        expRole1P1:
+          "Entré como becaria a principios de 2024 y, gracias a mi trabajo y aportación creativa, pasé a contrato indefinido. " +
+          "Mis principales funciones fueron edición de vídeo, cámara y apoyo en guion.",
+        expRole1P2:
+          "Participé en la cobertura y producción de diversos eventos de esports, trabajando como cámara o editora en " +
+          "proyectos como el Call of Duty Major (con Toronto Ultra), LEC Roadtrip, Spring Split, MSI y LEC Finals 2025.",
+        expRole1P3:
+          "Además, formé parte de múltiples rodajes con los creadores de contenido del club, colaborando como asistente de " +
+          "cámara y técnica, y editando todas esas piezas. También desarrollé propuestas propias, como el anuncio del TFT " +
+          "para EWC, donde dirigí el rodaje y escribí la idea.",
+        expRole2Block:
+          "Trabajo independiente en RRSS / Audiovisual<br>" +
+          "<strong>Twitch y otros — 2019–2025</strong>",
+        expRole2P1:
+          "Creadora de contenido en Twitch, TikTok y YouTube, realizando directos, podcasts y formatos propios, " +
+          "alcanzando más de 2.000 seguidores y hasta 300+ espectadores simultáneos.",
+        expRole2P2:
+          "He editado mis propios proyectos y colaborado como editora y cámara con otros creadores, como Abby.",
+        contactBlock:
+          "¿Hablamos?<br />" +
+          "Escríbeme a " +
+          "<a href=\"mailto:nataliategel@hotmail.es\">nataliategel@hotmail.es</a> " +
+          "o mándame un mensaje por redes <a href=\"https://x.com/NattCrow\">@NattCrow.</a>"
+      },
+      en: {
+        brand: "NATALIA TEGEL – VIDEO & PHOTOGRAPHY PORTFOLIO",
+        resumeBtn: "Resume",
+        heroTag: "Video Editor & Filmmaker",
+        heroTitle: "Hi, I'm <span class=\"highlight\">Natalia</span>",
+        heroSubtitle1:
+          "I'm a video editor and videographer focused on digital projects, esports, and creator content. " +
+          "I like turning ideas into clear stories through editing and design, always searching for my own style.",
+        heroSubtitle2:
+          "I have a soft spot for esports documentaries: I love capturing moments and turning them into lasting memories. " +
+          "I put creativity, technique, and a lot of care into every project I edit.",
+        heroContact:
+          "Shall we talk?<br />" +
+          "Write to me at <a href=\"mailto:nataliategel@hotmail.es\">nataliategel@hotmail.es</a> or send me a message on social media.",
+        heroLine: "<b>Scroll down</b> to see my projects.",
+        projectsTitle: "MY PROJECTS",
+        projectsSubtitle: "Scroll down to see my projects",
+        toggleVideos: "Videos",
+        togglePhotos: "Photos",
+        btnBack: "← Back to list",
+        btnNext: "Next project →",
+        detailCargosTitle: "Roles",
+        detailSummaryPrefix: "Project summary:",
+        cardTagVideo: "Video",
+        aboutTitle: "About me",
+        aboutP1:
+          "I'm Natalia, a video editor and videographer. I've worked on projects for creators, brands, and events, " +
+          "and while I love telling stories through documentaries, I can also adapt to any kind of audiovisual project: " +
+          "from corporate pieces, brands and social media content to music videos, interviews or more experimental work.",
+        aboutP2:
+          "I'm fluent in Adobe Premiere and have experience with other tools such as After Effects, Photoshop, Lightroom " +
+          "and DaVinci Resolve. I love experimenting with graphics, exploring new visual styles and always looking for that " +
+          "detail that makes a piece stand out.",
+        aboutP3:
+          "If you have a project that needs rhythm, personality and care in post-production, we can build it together.",
+        expTitle: "Recent experience",
+        expRole1Block:
+          "Filmmaker &amp; Video Editor — Movistar KOI / Mira Broadcast<br>" +
+          "<strong>Jan 2024 – Oct 2025 | Madrid – Berlin</strong>",
+        expRole1P1:
+          "I joined as an intern at the beginning of 2024 and, thanks to my work and creative input, I moved to a full-time position. " +
+          "My main duties were video editing, camera work and script support.",
+        expRole1P2:
+          "I took part in the coverage and production of several esports events, working as camera or editor on projects such as " +
+          "the Call of Duty Major (with Toronto Ultra), LEC Roadtrip, Spring Split, MSI and LEC Finals 2025.",
+        expRole1P3:
+          "I was also involved in multiple shoots with the club’s content creators, collaborating as camera and tech assistant and " +
+          "editing all those pieces. I also developed my own proposals, such as the TFT ad for EWC, where I directed the shoot " +
+          "and wrote the concept.",
+        expRole2Block:
+          "Independent work in Social Media / Audiovisual<br>" +
+          "<strong>Twitch and others — 2019–2025</strong>",
+        expRole2P1:
+          "Content creator on Twitch, TikTok and YouTube, doing live shows, podcasts and original formats, " +
+          "reaching over 2,000 followers and up to 300+ concurrent viewers.",
+        expRole2P2:
+          "I have edited my own projects and collaborated as editor and camera with other creators, such as Abby.",
+        contactBlock:
+          "Shall we talk?<br />" +
+          "Write to me at " +
+          "<a href=\"mailto:nataliategel@hotmail.es\">nataliategel@hotmail.es</a> " +
+          "or send me a message on social media <a href=\"https://x.com/NattCrow\">@NattCrow.</a>"
+      }
+    };
+
+    /* ============================
+       DATA: PROYECTOS DE VÍDEO (ES / EN)
        ============================ */
 
     const projects = [
-  {
-    id: "b--5ui5Ysbk",
-    url: "https://www.youtube.com/watch?v=b--5ui5Ysbk&t=673s",
-    title: "Detrás de las cámaras: LEC Finals",
-    desc: "Un vistazo detrás de las cámaras a las LEC Finals desde la perspectiva de los creadores de contenido de Movistar KOI, mostrando la preparación, el ambiente del evento y cómo viven la experiencia junto al equipo.",
-    cargos: ["Propuesta de vídeo", "Cámara", "Pautas para la edición"]
-  },
-  {
-    id: "bIRmdNPgTJ0",
-    url: "https://www.youtube.com/watch?v=bIRmdNPgTJ0&t=870s",
-    title: "MSI Vlog #3",
-    desc: "Un vlog que sigue a los jugadores de Movistar KOI durante el MSI 2025 en Vancouver, mostrando su recorrido por el evento, la preparación y cómo viven cada jornada del torneo.",
-    cargos: ["Cámara principal del vlog final"]
-  },
-  {
-    id: "1se0qiJCItA",
-    url: "https://youtu.be/1se0qiJCItA",
-    title: "MKOI TFT EWC Qualy",
-    desc: "Vídeo de hype para los fans sobre el equipo de TFT de Movistar KOI para clasificarse a la Esport World Cup.",
-    cargos: ["Propuesta de vídeo", "Guion", "Producción", "Edición"]
-  },
-  {
-    id: "5oAF8ra9ZTk",
-    url: "https://www.youtube.com/watch?v=5oAF8ra9ZTk&t=625s",
-    title: "Detrás de las cámaras: LEC Roadtrip",
-    desc: "Un vlog que muestra cómo vivieron los creadores de contenido de Movistar KOI la jornada presencial de LEC en Madrid.",
-    cargos: ["Propuesta de vídeo", "Cámara", "Edición"]
-  },
-   {
-    id: "J2WMrrIHSq0",
-    url: "https://youtu.be/J2WMrrIHSq0",
-    title: "Perplexity x MKFKOI",
-    desc: "Vídeo de promo junto a Perplexity protagonizada por el coach del equipo de Superliga de Movistar KOI.",
-    cargos: ["Edición", "Ayudante de producción", "Ayudante de cámara"]
-  },
-  {
-    id: "OZO384Qp5HY",
-    url: "https://youtu.be/OZO384Qp5HY",
-    title: "KOI en China",
-    desc: "Vídeo de presentación de Movistar KOI anunciando el lanzamiento de sus nuevas redes sociales en China que destaca principalmente por el uso de grafismos.",
-    cargos: ["Edición, Grafismos"]
-  },
-  {
-    id: "8Tcp43Q2ENI",
-    url: "https://youtu.be/8Tcp43Q2ENI",
-    title: "Subathon Abby",
-    desc: "Vídeo de presentación de la streamer Abby anunciando su viaje a Corea para realizar su subathon anual.",
-    cargos: ["Cámara", "Edición"]
-  },
- 
-  {
-    id: "f0QQX_gP8S8",
-    url: "https://www.youtube.com/watch?v=f0QQX_gP8S8&t=487s",
-    title: "Así se vive una jornada de Superliga presencial",
-    desc: "Un vlog que muestra una jornada de Superliga en presencial junto a Jaime Mellado, Kuentin y los fans.",
-    cargos: ["Propuesta de vídeo", "Cámara", "Edición"]
-  },
-  {
-    id: "LjHSErZKEnY",
-    url: "https://www.youtube.com/watch?v=LjHSErZKEnY&t=1584s",
-    title: "Vlog LEC final spring: campeones",
-    desc: "Vídeo vlog sobre cómo el equipo de LEC de Movistar KOI llegó a ser campeones del split de primavera.",
-    cargos: ["Segunda cámara (principalmente con los creadores de contenido del club)"]
-  },
-  {
-    id: "4W8jgrG_WDA",
-    url: "https://www.youtube.com/watch?v=4W8jgrG_WDA&t=9s",
-    title: "MKOI LEC responde preguntas picantes:",
-    desc: "Álvaro y Supa de Movistar KOI responden algunas preguntas picantes hechas por fans.",
-    cargos: ["Ayudante de cámara y montaje", "Producción", "Edición"]
-  },
-  {
-    id: "RvbDgiLymL0",
-    url: "https://www.youtube.com/watch?v=RvbDgiLymL0&t=5s",
-    title: "La charla más personal de Yoya",
-    desc: "Vídeo patrocinado por Médicos del Mundo donde Elyoya habla de salud mental.",
-    cargos: ["Ayudante de cámara y montaje", "Producción", "Edición"]
-  },
-  {
-    id: "dm8rcGpktCI",
-    url: "https://www.youtube.com/watch?v=dm8rcGpktCI&t=73s",
-    title: "Q&A con MKOI LEC",
-    desc: "Vídeo de preguntas y respuestas junto al equipo de Movistar KOI.",
-    cargos: ["Ayudante de cámara y montaje", "Producción", "Edición"]
-  },
-  {
-    id: "1glla1ylSB0",
-    url: "https://www.youtube.com/watch?v=1glla1ylSB0&t=70s",
-    title: "Los esenciales de Skain, Karchez y Mellado",
-    desc: "Un vídeo donde los creadores Skain, Karchez y Mellado muestran lo que llevan siempre con ellos.",
-    cargos: ["Edición de toda la serie de esenciales", "Producción"]
-  },
-  {
-    id: "WrjSoYG0QBc",
-    url: "https://www.youtube.com/watch?v=WrjSoYG0QBc",
-    title: "Adivina quién te pegó con el churro",
-    desc: "Vídeo con los creadores de contenido de Movistar KOI donde tienen que adivinar quién les pegó con un churro en la cabeza.",
-    cargos: ["Edición", "Producción"]
-  },
-  {
-    id: "UqYnqFUSC9g",
-    url: "https://www.youtube.com/watch?v=UqYnqFUSC9g&t=940s",
-    title: "Circuito de retos",
-    desc: "Una pieza que junta diferentes retos impartidos a los creadores de contenido de Movistar KOI.",
-    cargos: ["Edición", "Producción"]
-  },
-  {
-    id: "xCES1lw7SmU",
-    url: "https://www.youtube.com/watch?v=xCES1lw7SmU&t=140s",
-    title: "Whisper Challenge",
-    desc: "Clásico whisper challenge junto a los creadores de Movistar KOI.",
-    cargos: ["Edición", "Producción"]
-  },
-  {
-    id: "-NE8oJ-3RL0",
-    url: "https://youtu.be/-NE8oJ-3RL0",
-    title: "Pokémon Promo",
-    desc: "Pieza con los jugadores de Pokémon Eric \"Riopaser\" Ríos y Alex \"Pokealex\" Gómez pre-competición para generar hype a los fans.",
-    cargos: ["Propuesta de vídeo", "Guion", "Producción", "Edición"]
-  },
-  {
-    id: "Um5kj3-b00U",
-    url: "https://youtu.be/Um5kj3-b00U",
-    title: "MKOI Valorant",
-    desc: "Vídeo que realicé para practicar Blender y mostrar mi apoyo al equipo de Valorant tras finalizar mis prácticas en abril de 2024.",
-    cargos: ["Edición"]
-  },
-  {
-    id: "fqX4Q81aGtg",
-    url: "https://youtu.be/fqX4Q81aGtg",
-    title: "Playoffs Superliga",
-    desc: "Pieza de hype junto a Marky y Random del equipo de Superliga 2024 de KOI después de conseguir calificarse a los Playoffs de la temporada.",
-    cargos: ["Propuesta de vídeo", "Cámara", "Guion", "Producción", "Edición"]
-  },
-  
-  {
-    id: "CTMz6OwTqEU",
-    url: "https://www.youtube.com/watch?v=HNc5mMuTfPM&t=10s",
-    title: "MKOI VCT: El documental",
-    desc: "Vídeo que muestra el recorrido del equipo de Valorant de Movistar KOI durante su dura temporada.",
-    cargos: ["Edición"]
-  },
-  {
-    id: "HNc5mMuTfPM", 
-    url: "https://www.youtube.com/watch?v=CTMz6OwTqEU",
-    title: "El equipo de VCT juega al Trivia:",
-    desc: "Pieza divertida donde el equipo de Valorant de Movistar Koi juega al trivial.",
-    cargos: ["Edición"]
-  }
-];
+      {
+        id: "b--5ui5Ysbk",
+        url: "https://www.youtube.com/watch?v=b--5ui5Ysbk&t=673s",
+        title: {
+          es: "Detrás de las cámaras: LEC Finals",
+          en: "Behind the scenes: LEC Finals"
+        },
+        desc: {
+          es: "Un vistazo detrás de las cámaras a las LEC Finals desde la perspectiva de los creadores de contenido de Movistar KOI, mostrando la preparación, el ambiente del evento y cómo viven la experiencia junto al equipo.",
+          en: "A behind-the-scenes look at the LEC Finals from the perspective of Movistar KOI's content creators, showing the preparation, the event atmosphere and how they experience it alongside the team."
+        },
+        cargos: {
+          es: ["Propuesta de vídeo", "Cámara", "Pautas para la edición"],
+          en: ["Video proposal", "Camera", "Editing guidelines"]
+        }
+      },
+      {
+        id: "bIRmdNPgTJ0",
+        url: "https://www.youtube.com/watch?v=bIRmdNPgTJ0&t=870s",
+        title: {
+          es: "MSI Vlog #3",
+          en: "MSI Vlog #3"
+        },
+        desc: {
+          es: "Un vlog que sigue a los jugadores de Movistar KOI durante el MSI 2025 en Vancouver, mostrando su recorrido por el evento, la preparación y cómo viven cada jornada del torneo.",
+          en: "A vlog that follows Movistar KOI's players during MSI 2025 in Vancouver, showing their journey through the event, their preparation and how they experience each day of the tournament."
+        },
+        cargos: {
+          es: ["Cámara principal del vlog final"],
+          en: ["Main camera for the final vlog"]
+        }
+      },
+      {
+        id: "1se0qiJCItA",
+        url: "https://youtu.be/1se0qiJCItA",
+        title: {
+          es: "MKOI TFT EWC Qualy",
+          en: "MKOI TFT EWC Qualy"
+        },
+        desc: {
+          es: "Vídeo de hype para los fans sobre el equipo de TFT de Movistar KOI para clasificarse a la Esport World Cup.",
+          en: "Hype video for fans about Movistar KOI's TFT team on their path to qualify for the Esport World Cup."
+        },
+        cargos: {
+          es: ["Propuesta de vídeo", "Guion", "Producción", "Edición"],
+          en: ["Video proposal", "Script", "Production", "Editing"]
+        }
+      },
+      {
+        id: "5oAF8ra9ZTk",
+        url: "https://www.youtube.com/watch?v=5oAF8ra9ZTk&t=625s",
+        title: {
+          es: "Detrás de las cámaras: LEC Roadtrip",
+          en: "Behind the scenes: LEC Roadtrip"
+        },
+        desc: {
+          es: "Un vlog que muestra cómo vivieron los creadores de contenido de Movistar KOI la jornada presencial de LEC en Madrid.",
+          en: "A vlog showing how Movistar KOI's content creators experienced the in-person LEC day in Madrid."
+        },
+        cargos: {
+          es: ["Propuesta de vídeo", "Cámara", "Edición"],
+          en: ["Video proposal", "Camera", "Editing"]
+        }
+      },
+      {
+        id: "OZO384Qp5HY",
+        url: "https://youtu.be/OZO384Qp5HY",
+        title: {
+          es: "KOI en China",
+          en: "KOI in China"
+        },
+        desc: {
+          es: "Vídeo de presentación de Movistar KOI anunciando el lanzamiento de sus nuevas redes sociales en China que destaca principalmente por el uso de grafismos.",
+          en: "Presentation video announcing the launch of Movistar KOI's new social media channels in China, standing out mainly for its graphic design work."
+        },
+        cargos: {
+          es: ["Edición, Grafismos"],
+          en: ["Editing, Motion graphics"]
+        }
+      },
+      {
+        id: "8Tcp43Q2ENI",
+        url: "https://youtu.be/8Tcp43Q2ENI",
+        title: {
+          es: "Subathon Abby",
+          en: "Abby Subathon"
+        },
+        desc: {
+          es: "Vídeo de presentación de la streamer Abby anunciando su viaje a Corea para realizar su subathon anual.",
+          en: "Presentation video for streamer Abby announcing her trip to Korea for her yearly subathon."
+        },
+        cargos: {
+          es: ["Cámara", "Edición"],
+          en: ["Camera", "Editing"]
+        }
+      },
+      {
+        id: "f0QQX_gP8S8",
+        url: "https://www.youtube.com/watch?v=f0QQX_gP8S8&t=487s",
+        title: {
+          es: "Así se vive una jornada de Superliga presencial",
+          en: "This is what a live Superliga day feels like"
+        },
+        desc: {
+          es: "Un vlog que muestra una jornada de Superliga en presencial junto a Jaime Mellado, Kuentin y los fans.",
+          en: "A vlog showing a live Superliga day together with Jaime Mellado, Kuentin and the fans."
+        },
+        cargos: {
+          es: ["Propuesta de vídeo", "Cámara", "Edición"],
+          en: ["Video proposal", "Camera", "Editing"]
+        }
+      },
+      {
+        id: "LjHSErZKEnY",
+        url: "https://www.youtube.com/watch?v=LjHSErZKEnY&t=1584s",
+        title: {
+          es: "Vlog LEC final spring: campeones",
+          en: "LEC Spring Final vlog: champions"
+        },
+        desc: {
+          es: "Vídeo vlog sobre cómo el equipo de LEC de Movistar KOI llegó a ser campeones del split de primavera.",
+          en: "Vlog about how Movistar KOI's LEC team became champions of the Spring Split."
+        },
+        cargos: {
+          es: ["Segunda cámara (principalmente con los creadores de contenido del club)"],
+          en: ["Second camera (mainly with the club's content creators)"]
+        }
+      },
+      {
+        id: "4W8jgrG_WDA",
+        url: "https://www.youtube.com/watch?v=4W8jgrG_WDA&t=9s",
+        title: {
+          es: "MKOI LEC responde preguntas picantes:",
+          en: "MKOI LEC answers spicy questions:"
+        },
+        desc: {
+          es: "Álvaro y Supa de Movistar KOI responden algunas preguntas picantes hechas por fans.",
+          en: "Álvaro and Supa from Movistar KOI answer some spicy questions from fans."
+        },
+        cargos: {
+          es: ["Ayudante de cámara y montaje", "Producción", "Edición"],
+          en: ["Camera and editing assistant", "Production", "Editing"]
+        }
+      },
+      {
+        id: "RvbDgiLymL0",
+        url: "https://www.youtube.com/watch?v=RvbDgiLymL0&t=5s",
+        title: {
+          es: "La charla más personal de Yoya",
+          en: "Yoya's most personal talk"
+        },
+        desc: {
+          es: "Vídeo patrocinado por Médicos del Mundo donde Elyoya habla de salud mental.",
+          en: "Sponsored video by Doctors of the World where Elyoya talks about mental health."
+        },
+        cargos: {
+          es: ["Ayudante de cámara y montaje", "Producción", "Edición"],
+          en: ["Camera and editing assistant", "Production", "Editing"]
+        }
+      },
+      {
+        id: "dm8rcGpktCI",
+        url: "https://www.youtube.com/watch?v=dm8rcGpktCI&t=73s",
+        title: {
+          es: "Q&A con MKOI LEC",
+          en: "Q&A with MKOI LEC"
+        },
+        desc: {
+          es: "Vídeo de preguntas y respuestas junto al equipo de Movistar KOI.",
+          en: "Q&A video with the Movistar KOI LEC team."
+        },
+        cargos: {
+          es: ["Ayudante de cámara y montaje", "Producción", "Edición"],
+          en: ["Camera and editing assistant", "Production", "Editing"]
+        }
+      },
+      {
+        id: "1glla1ylSB0",
+        url: "https://www.youtube.com/watch?v=1glla1ylSB0&t=70s",
+        title: {
+          es: "Los esenciales de Skain, Karchez y Mellado",
+          en: "The essentials of Skain, Karchez and Mellado"
+        },
+        desc: {
+          es: "Un vídeo donde los creadores Skain, Karchez y Mellado muestran lo que llevan siempre con ellos.",
+          en: "A video where creators Skain, Karchez and Mellado show what they always carry with them."
+        },
+        cargos: {
+          es: ["Edición de toda la serie de esenciales", "Producción"],
+          en: ["Editing of the whole essentials series", "Production"]
+        }
+      },
+      {
+        id: "WrjSoYG0QBc",
+        url: "https://www.youtube.com/watch?v=WrjSoYG0QBc",
+        title: {
+          es: "Adivina quién te pegó con el churro",
+          en: "Guess who hit you with the pool noodle"
+        },
+        desc: {
+          es: "Vídeo con los creadores de contenido de Movistar KOI donde tienen que adivinar quién les pegó con un churro en la cabeza.",
+          en: "Video with Movistar KOI content creators where they have to guess who hit them on the head with a pool noodle."
+        },
+        cargos: {
+          es: ["Edición", "Producción"],
+          en: ["Editing", "Production"]
+        }
+      },
+      {
+        id: "UqYnqFUSC9g",
+        url: "https://www.youtube.com/watch?v=UqYnqFUSC9g&t=940s",
+        title: {
+          es: "Circuito de retos",
+          en: "Challenge circuit"
+        },
+        desc: {
+          es: "Una pieza que junta diferentes retos impartidos a los creadores de contenido de Movistar KOI.",
+          en: "A piece that gathers different challenges given to Movistar KOI's content creators."
+        },
+        cargos: {
+          es: ["Edición", "Producción"],
+          en: ["Editing", "Production"]
+        }
+      },
+      {
+        id: "xCES1lw7SmU",
+        url: "https://www.youtube.com/watch?v=xCES1lw7SmU&t=140s",
+        title: {
+          es: "Whisper Challenge",
+          en: "Whisper Challenge"
+        },
+        desc: {
+          es: "Clásico whisper challenge junto a los creadores de Movistar KOI.",
+          en: "Classic whisper challenge with Movistar KOI's creators."
+        },
+        cargos: {
+          es: ["Edición", "Producción"],
+          en: ["Editing", "Production"]
+        }
+      },
+      {
+        id: "-NE8oJ-3RL0",
+        url: "https://youtu.be/-NE8oJ-3RL0",
+        title: {
+          es: "Pokémon Promo",
+          en: "Pokémon Promo"
+        },
+        desc: {
+          es: "Pieza con los jugadores de Pokémon Eric \"Riopaser\" Ríos y Alex \"Pokealex\" Gómez pre-competición para generar hype a los fans.",
+          en: "Piece with Pokémon players Eric \"Riopaser\" Ríos and Alex \"Pokealex\" Gómez before competition to build hype for the fans."
+        },
+        cargos: {
+          es: ["Propuesta de vídeo", "Guion", "Producción", "Edición"],
+          en: ["Video proposal", "Script", "Production", "Editing"]
+        }
+      },
+      {
+        id: "Um5kj3-b00U",
+        url: "https://youtu.be/Um5kj3-b00U",
+        title: {
+          es: "MKOI Valorant",
+          en: "MKOI Valorant"
+        },
+        desc: {
+          es: "Vídeo que realicé para practicar Blender y mostrar mi apoyo al equipo de Valorant tras finalizar mis prácticas en abril de 2024.",
+          en: "Video I made to practice Blender and show my support for the Valorant team after finishing my internship in April 2024."
+        },
+        cargos: {
+          es: ["Edición"],
+          en: ["Editing"]
+        }
+      },
+      {
+        id: "fqX4Q81aGtg",
+        url: "https://youtu.be/fqX4Q81aGtg",
+        title: {
+          es: "Playoffs Superliga",
+          en: "Superliga Playoffs"
+        },
+        desc: {
+          es: "Pieza de hype junto a Marky y Random del equipo de Superliga 2024 de KOI después de conseguir calificarse a los Playoffs de la temporada.",
+          en: "Hype piece with Marky and Random from KOI's 2024 Superliga team after qualifying for the season's Playoffs."
+        },
+        cargos: {
+          es: ["Propuesta de vídeo", "Cámara", "Guion", "Producción", "Edición"],
+          en: ["Video proposal", "Camera", "Script", "Production", "Editing"]
+        }
+      },
+      {
+        id: "CTMz6OwTqEU",
+        url: "https://www.youtube.com/watch?v=HNc5mMuTfPM&t=10s",
+        title: {
+          es: "MKOI VCT: El documental",
+          en: "MKOI VCT: The documentary"
+        },
+        desc: {
+          es: "Vídeo que muestra el recorrido del equipo de Valorant de Movistar KOI durante su dura temporada.",
+          en: "Video showing the journey of Movistar KOI's Valorant team throughout their tough season."
+        },
+        cargos: {
+          es: ["Edición"],
+          en: ["Editing"]
+        }
+      },
+      {
+        id: "HNc5mMuTfPM",
+        url: "https://www.youtube.com/watch?v=CTMz6OwTqEU",
+        title: {
+          es: "El equipo de VCT juega al Trivia:",
+          en: "The VCT team plays Trivia:"
+        },
+        desc: {
+          es: "Pieza divertida donde el equipo de Valorant de Movistar Koi juega al trivial.",
+          en: "Fun piece where Movistar KOI's Valorant team plays a trivia game."
+        },
+        cargos: {
+          es: ["Edición"],
+          en: ["Editing"]
+        }
+      },
+      {
+        id: "J2WMrrIHSq0",
+        url: "https://youtu.be/J2WMrrIHSq0",
+        title: {
+          es: "Perplexity x MKFKOI",
+          en: "Perplexity x MKFKOI"
+        },
+        desc: {
+          es: "Vídeo de promo junto a Perplexity protagonizada por el coach del equipo de Superliga de Movistar KOI.",
+          en: "Promo video with Perplexity starring the coach of Movistar KOI's Superliga team."
+        },
+        cargos: {
+          es: ["Edición", "Ayudante de producción", "Ayudante de cámara"],
+          en: ["Editing", "Production assistant", "Camera assistant"]
+        }
+      }
+    ];
 
     /* ============================
-       DATA: FOTOS (.jpg)
+       DATA: FOTOS (.jpg) (labels ES / EN)
        ============================ */
 
-       const photoItems = [
-  // El rojo duele menos (Gema Vadillo, 2024)
-  { src: "https://i.gyazo.com/9e8fe4ac1ff3383d7bf7deb00fd92d46.jpg", label: "El rojo duele menos · Making of (Gema Vadillo, 2024)" },
-  { src: "https://i.gyazo.com/3edd5bdfda16cb3779813be5daf475fe.jpg", label: "El rojo duele menos · Making of" },
-  { src: "https://i.gyazo.com/df0f87cc2c9e8cdc9b61de193149549c.png", label: "El rojo duele menos · Making of" },
-  { src: "https://i.gyazo.com/f0d5186de3ba4264493257844b5a954f.png", label: "El rojo duele menos · Making of" },
-  { src: "https://i.gyazo.com/b20c4a442beea1a1d11432a3ce5d73f6.png", label: "El rojo duele menos · Making of" },
-  { src: "https://i.gyazo.com/f629e8e719cc5051337bdc6f9ec2aff4.png", label: "El rojo duele menos · Making of" },
-  { src: "https://i.gyazo.com/12811452a2f2620bf0a686b9ef6794d1.png", label: "El rojo duele menos · Making of" },
-  { src: "https://i.gyazo.com/0fecfb94ee0e266af71a90b01398a694.png", label: "El rojo duele menos · Making of" },
-  { src: "https://i.gyazo.com/e278d5cbdf86b759985ebe7aac0c9023.png", label: "El rojo duele menos · Making of" },
-  { src: "https://i.gyazo.com/f5c845a9fe4501d2f64662a568a796ac.jpg", label: "El rojo duele menos · Making of" },
-  { src: "https://i.gyazo.com/7bd95e15bd56741225dda7eef21aea52.png", label: "El rojo duele menos · Making of" },
+    const photoItems = [
+      { src: "https://i.gyazo.com/9e8fe4ac1ff3383d7bf7deb00fd92d46.jpg", label: { es: "El rojo duele menos · Making of (Gema Vadillo, 2024)", en: "El rojo duele menos · Making of (Gema Vadillo, 2024)" } },
+      { src: "https://i.gyazo.com/3edd5bdfda16cb3779813be5daf475fe.jpg", label: { es: "El rojo duele menos · Making of", en: "El rojo duele menos · Making of" } },
+      { src: "https://i.gyazo.com/df0f87cc2c9e8cdc9b61de193149549c.png", label: { es: "El rojo duele menos · Making of", en: "El rojo duele menos · Making of" } },
+      { src: "https://i.gyazo.com/f0d5186de3ba4264493257844b5a954f.png", label: { es: "El rojo duele menos · Making of", en: "El rojo duele menos · Making of" } },
+      { src: "https://i.gyazo.com/b20c4a442beea1a1d11432a3ce5d73f6.png", label: { es: "El rojo duele menos · Making of", en: "El rojo duele menos · Making of" } },
+      { src: "https://i.gyazo.com/f629e8e719cc5051337bdc6f9ec2aff4.png", label: { es: "El rojo duele menos · Making of", en: "El rojo duele menos · Making of" } },
+      { src: "https://i.gyazo.com/12811452a2f2620bf0a686b9ef6794d1.png", label: { es: "El rojo duele menos · Making of", en: "El rojo duele menos · Making of" } },
+      { src: "https://i.gyazo.com/0fecfb94ee0e266af71a90b01398a694.png", label: { es: "El rojo duele menos · Making of", en: "El rojo duele menos · Making of" } },
+      { src: "https://i.gyazo.com/e278d5cbdf86b759985ebe7aac0c9023.png", label: { es: "El rojo duele menos · Making of", en: "El rojo duele menos · Making of" } },
+      { src: "https://i.gyazo.com/f5c845a9fe4501d2f64662a568a796ac.jpg", label: { es: "El rojo duele menos · Making of", en: "El rojo duele menos · Making of" } },
+      { src: "https://i.gyazo.com/7bd95e15bd56741225dda7eef21aea52.png", label: { es: "El rojo duele menos · Making of", en: "El rojo duele menos · Making of" } },
 
-  // Valorant Masters Madrid 2024
-  { src: "https://i.gyazo.com/469dbc10a5c3acb301c3d1fd2c6ac120.png", label: "Valorant Masters Madrid 2024" },
-  { src: "https://i.gyazo.com/6a8346d12e106386cfe9118d55d80c91.png", label: "Valorant Masters Madrid 2024" },
-  { src: "https://i.gyazo.com/f0ede039d860fc405fdbd8f0f571b345.png", label: "Valorant Masters Madrid 2024" },
-  { src: "https://i.gyazo.com/be7498a281d6420e8603d5dbf2d8a636.png", label: "Valorant Masters Madrid 2024" },
+      { src: "https://i.gyazo.com/469dbc10a5c3acb301c3d1fd2c6ac120.png", label: { es: "Valorant Masters Madrid 2024", en: "Valorant Masters Madrid 2024" } },
+      { src: "https://i.gyazo.com/6a8346d12e106386cfe9118d55d80c91.png", label: { es: "Valorant Masters Madrid 2024", en: "Valorant Masters Madrid 2024" } },
+      { src: "https://i.gyazo.com/f0ede039d860fc405fdbd8f0f571b345.png", label: { es: "Valorant Masters Madrid 2024", en: "Valorant Masters Madrid 2024" } },
+      { src: "https://i.gyazo.com/be7498a281d6420e8603d5dbf2d8a636.png", label: { es: "Valorant Masters Madrid 2024", en: "Valorant Masters Madrid 2024" } },
 
-  // Final Superliga Murcia 2024
-  { src: "https://i.gyazo.com/394d685febf7eaa77d3e88a0e4bd4121.png", label: "Final Superliga Murcia 2024 · Marky" },
-  { src: "https://i.gyazo.com/58d60710c734334806e2ebbc3c715fe8.png", label: "Final Superliga Murcia 2024 · Team Heretics levantando la copa" },
-  { src: "https://i.gyazo.com/a787c6d39ee3c1c168d8cff1373ca741.png", label: "Final Superliga Murcia 2024 · Marky firmando a los fans" },
-  { src: "https://i.gyazo.com/3c989bc7812793ef34aef1d97bbd029b.jpg", label: "Final Superliga Murcia 2024 · Marky llevando la copa" },
+      { src: "https://i.gyazo.com/394d685febf7eaa77d3e88a0e4bd4121.png", label: { es: "Final Superliga Murcia 2024 · Marky", en: "Superliga Final Murcia 2024 · Marky" } },
+      { src: "https://i.gyazo.com/58d60710c734334806e2ebbc3c715fe8.png", label: { es: "Final Superliga Murcia 2024 · Team Heretics levantando la copa", en: "Superliga Final Murcia 2024 · Team Heretics lifting the trophy" } },
+      { src: "https://i.gyazo.com/a787c6d39ee3c1c168d8cff1373ca741.png", label: { es: "Final Superliga Murcia 2024 · Marky firmando a los fans", en: "Superliga Final Murcia 2024 · Marky signing for fans" } },
+      { src: "https://i.gyazo.com/3c989bc7812793ef34aef1d97bbd029b.jpg", label: { es: "Final Superliga Murcia 2024 · Marky llevando la copa", en: "Superliga Final Murcia 2024 · Marky carrying the trophy" } },
 
-  // Tristán en el concierto de Rusowsky (texto en ambos)
-  { src: "https://gyazo.com/dfdfacefda7b35c5289544c934dd5a2b.jpg", label: "Tristán en el concierto de Rusowsky" },
-  { src: "https://i.gyazo.com/ddc22e2d89711869f160b2fa8500e2d7.png", label: "Tristán en el concierto de Rusowsky" },
+      { src: "https://gyazo.com/dfdfacefda7b35c5289544c934dd5a2b.jpg", label: { es: "Tristán en el concierto de Rusowsky", en: "Tristán at Rusowsky's concert" } },
+      { src: "https://i.gyazo.com/ddc22e2d89711869f160b2fa8500e2d7.png", label: { es: "Tristán en el concierto de Rusowsky", en: "Tristán at Rusowsky's concert" } },
 
-  // KOICON 2024
-  { src: "https://i.gyazo.com/3aea6f73532dba77bf22e80fdb1488d8.png", label: "KOICON 2024 · Jojopyun" },
-  { src: "https://i.gyazo.com/e5e849fc8b59432f49ee45a6bec8600b.png", label: "KOICON 2024 · Jojopyun y Elyoya" },
-  { src: "https://i.gyazo.com/d8aaa0b4a8d39b3725dcdae700c1ef6f.png", label: "KOICON 2024 · Jaime Mellado y Myrwnn" },
-  { src: "https://i.gyazo.com/14d854bc895af8443d798436e60b1b68.png", label: "KOICON 2024 · Ibai y creadores de contenido de MKOI" },
+      { src: "https://i.gyazo.com/3aea6f73532dba77bf22e80fdb1488d8.png", label: { es: "KOICON 2024 · Jojopyun", en: "KOICON 2024 · Jojopyun" } },
+      { src: "https://i.gyazo.com/e5e849fc8b59432f49ee45a6bec8600b.png", label: { es: "KOICON 2024 · Jojopyun y Elyoya", en: "KOICON 2024 · Jojopyun and Elyoya" } },
+      { src: "https://i.gyazo.com/d8aaa0b4a8d39b3725dcdae700c1ef6f.png", label: { es: "KOICON 2024 · Jaime Mellado y Myrwnn", en: "KOICON 2024 · Jaime Mellado and Myrwnn" } },
+      { src: "https://i.gyazo.com/14d854bc895af8443d798436e60b1b68.png", label: { es: "KOICON 2024 · Ibai y creadores de contenido de MKOI", en: "KOICON 2024 · Ibai and MKOI content creators" } },
 
-  // CALL OF DUTY MAJOR 2025
-  { src: "https://i.gyazo.com/33f33994b7dc416554a3c55bb4e2aac5.png", label: "Call of Duty Major 2025" },
-  { src: "https://i.gyazo.com/a938aae496d4166349d60a742e345428.png", label: "Call of Duty Major 2025 · Toronto Ultra" },
-  { src: "https://i.gyazo.com/4f2237e3b08e2503848355f25265cbf9.png", label: "Call of Duty Major 2025 · Ulises" },
-  { src: "https://i.gyazo.com/ee4763d3a43cf71faceda54d2cd9bbf9.png", label: "Call of Duty Major 2025 · Atlanta FaZe" },
+      { src: "https://i.gyazo.com/33f33994b7dc416554a3c55bb4e2aac5.png", label: { es: "Call of Duty Major 2025", en: "Call of Duty Major 2025" } },
+      { src: "https://i.gyazo.com/a938aae496d4166349d60a742e345428.png", label: { es: "Call of Duty Major 2025 · Toronto Ultra", en: "Call of Duty Major 2025 · Toronto Ultra" } },
+      { src: "https://i.gyazo.com/4f2237e3b08e2503848355f25265cbf9.png", label: { es: "Call of Duty Major 2025 · Ulises", en: "Call of Duty Major 2025 · Ulises" } },
+      { src: "https://i.gyazo.com/ee4763d3a43cf71faceda54d2cd9bbf9.png", label: { es: "Call of Duty Major 2025 · Atlanta FaZe", en: "Call of Duty Major 2025 · Atlanta FaZe" } },
 
-  // Sin texto
-  { src: "https://i.gyazo.com/23503a9569e41b8c49adb2c1cdcc31c9.jpg", label: "" },
-  { src: "https://i.gyazo.com/4fca06e53003a8daec26788e467c2938.jpg", label: "" },
-  { src: "https://i.gyazo.com/beb680c582aed3e448c637dbaf8c1ee2.jpg", label: "" },
-  { src: "https://i.gyazo.com/1bbab6ae38904978c53df1013248c170.jpg", label: "" },
-  { src: "https://i.gyazo.com/d9a8aedbfe62452708d0b31ae8ff45fb.jpg", label: "" },
-  { src: "https://i.gyazo.com/81283aa6a2ab6c4eefcce0cebb7d6608.jpg", label: "" },
-  { src: "https://i.gyazo.com/791c72373cec948bdafc1fff40cfa8e4.jpg", label: "" },
-  { src: "https://i.gyazo.com/e2a1778716d3551c3d17461a1e734dd5.jpg", label: "" },
-  { src: "https://i.gyazo.com/5114389ef7620c96f671fe9084452a03.jpg", label: "" },
-  { src: "https://i.gyazo.com/d45a5d2d6e0f8f087444cea8aedb8ec6.jpg", label: "" },
-  { src: "https://i.gyazo.com/d3247d7e598ebc245b1943a7fe969744.jpg", label: "" },
-  { src: "https://i.gyazo.com/8707bb6b1d8ed69c6581fd69641215c6.jpg", label: "" },
-  { src: "https://i.gyazo.com/5aab70724b75ed64ba92b94d41123ede.jpg", label: "" },
-  { src: "https://i.gyazo.com/7a0f2f609f9ef0b1acde09447e73f393.jpg", label: "" },
-  { src: "https://i.gyazo.com/768b217b8436680b73d5f2aca4155333.jpg", label: "" },
-  { src: "https://i.gyazo.com/ce65d8b1daa4ea62fb166a9a7d3c9c30.jpg", label: "" },
-  { src: "https://i.gyazo.com/df34fcbad5f34eb7283c5c933a49de08.jpg", label: "" },
-  { src: "https://i.gyazo.com/081a0d24f6506804a0e28f8c7ded12ca.jpg", label: "" },
-  { src: "https://i.gyazo.com/25539594406b17043ccaf1f6f7fb30d7.jpg", label: "" },
-  { src: "https://i.gyazo.com/207dd70861d85879143a6b85da67919b.jpg", label: "" }
-];
+      { src: "https://i.gyazo.com/23503a9569e41b8c49adb2c1cdcc31c9.jpg", label: { es: "", en: "" } },
+      { src: "https://i.gyazo.com/4fca06e53003a8daec26788e467c2938.jpg", label: { es: "", en: "" } },
+      { src: "https://i.gyazo.com/beb680c582aed3e448c637dbaf8c1ee2.jpg", label: { es: "", en: "" } },
+      { src: "https://i.gyazo.com/1bbab6ae38904978c53df1013248c170.jpg", label: { es: "", en: "" } },
+      { src: "https://i.gyazo.com/d9a8aedbfe62452708d0b31ae8ff45fb.jpg", label: { es: "", en: "" } },
+      { src: "https://i.gyazo.com/81283aa6a2ab6c4eefcce0cebb7d6608.jpg", label: { es: "", en: "" } },
+      { src: "https://i.gyazo.com/791c72373cec948bdafc1fff40cfa8e4.jpg", label: { es: "", en: "" } },
+      { src: "https://i.gyazo.com/e2a1778716d3551c3d17461a1e734dd5.jpg", label: { es: "", en: "" } },
+      { src: "https://i.gyazo.com/5114389ef7620c96f671fe9084452a03.jpg", label: { es: "", en: "" } },
+      { src: "https://i.gyazo.com/d45a5d2d6e0f8f087444cea8aedb8ec6.jpg", label: { es: "", en: "" } },
+      { src: "https://i.gyazo.com/d3247d7e598ebc245b1943a7fe969744.jpg", label: { es: "", en: "" } },
+      { src: "https://i.gyazo.com/8707bb6b1d8ed69c6581fd69641215c6.jpg", label: { es: "", en: "" } },
+      { src: "https://i.gyazo.com/5aab70724b75ed64ba92b94d41123ede.jpg", label: { es: "", en: "" } },
+      { src: "https://i.gyazo.com/7a0f2f609f9ef0b1acde09447e73f393.jpg", label: { es: "", en: "" } },
+      { src: "https://i.gyazo.com/768b217b8436680b73d5f2aca4155333.jpg", label: { es: "", en: "" } },
+      { src: "https://i.gyazo.com/ce65d8b1daa4ea62fb166a9a7d3c9c30.jpg", label: { es: "", en: "" } },
+      { src: "https://i.gyazo.com/df34fcbad5f34eb7283c5c933a49de08.jpg", label: { es: "", en: "" } },
+      { src: "https://i.gyazo.com/081a0d24f6506804a0e28f8c7ded12ca.jpg", label: { es: "", en: "" } },
+      { src: "https://i.gyazo.com/25539594406b17043ccaf1f6f7fb30d7.jpg", label: { es: "", en: "" } },
+      { src: "https://i.gyazo.com/207dd70861d85879143a6b85da67919b.jpg", label: { es: "", en: "" } }
+    ];
 
     /* ============================
        REFERENCIAS DOM
@@ -1150,6 +1553,7 @@
     const detailDesc = document.getElementById("detailDesc");
     const detailCargos = document.getElementById("detailCargos");
     const detailVideoThumb = document.getElementById("detailVideoThumb");
+    const detailCargosTitle = document.getElementById("detailCargosTitle");
 
     const carLeft = document.getElementById("carLeft");
     const carRight = document.getElementById("carRight");
@@ -1162,7 +1566,53 @@
     const photoModalClose = document.getElementById("photoModalClose");
     const photoModalBackdrop = document.getElementById("photoModalBackdrop");
 
+    const langButtons = document.querySelectorAll(".lang-btn");
+
+    const staticTextEls = {
+      brand: document.getElementById("brand"),
+      resumeBtn: document.getElementById("resumeBtnText"),
+      heroTag: document.getElementById("heroTag"),
+      heroTitle: document.getElementById("heroTitle"),
+      heroSubtitle1: document.getElementById("heroSubtitle1"),
+      heroSubtitle2: document.getElementById("heroSubtitle2"),
+      heroContact: document.getElementById("heroContact"),
+      heroLine: document.getElementById("heroLine"),
+      projectsTitle: document.getElementById("projectsTitle"),
+      projectsSubtitle: document.getElementById("projectsSubtitle"),
+      toggleVideos: document.getElementById("toggleVideos"),
+      togglePhotos: document.getElementById("togglePhotos"),
+      btnBack: document.getElementById("btnBack"),
+      btnNext: document.getElementById("btnNext"),
+      detailCargosTitle: document.getElementById("detailCargosTitle"),
+      aboutTitle: document.getElementById("aboutTitle"),
+      aboutP1: document.getElementById("aboutP1"),
+      aboutP2: document.getElementById("aboutP2"),
+      aboutP3: document.getElementById("aboutP3"),
+      expTitle: document.getElementById("expTitle"),
+      expRole1Block: document.getElementById("expRole1Block"),
+      expRole1P1: document.getElementById("expRole1P1"),
+      expRole1P2: document.getElementById("expRole1P2"),
+      expRole1P3: document.getElementById("expRole1P3"),
+      expRole2Block: document.getElementById("expRole2Block"),
+      expRole2P1: document.getElementById("expRole2P1"),
+      expRole2P2: document.getElementById("expRole2P2"),
+      contactBlock: document.getElementById("contactBlock")
+    };
+
     let currentIndex = 0;
+
+    /* ============================
+       FUNCIONES I18N
+       ============================ */
+
+    function applyStaticText() {
+      const dict = i18nStatic[currentLang];
+      for (const key in staticTextEls) {
+        if (staticTextEls[key] && dict[key] !== undefined) {
+          staticTextEls[key].innerHTML = dict[key];
+        }
+      }
+    }
 
     /* ============================
        CREAR TARJETAS DE VÍDEO
@@ -1180,7 +1630,7 @@
 
         const tag = document.createElement("span");
         tag.className = "card-tag";
-        tag.textContent = "Video";
+        tag.textContent = i18nStatic[currentLang].cardTagVideo;
 
         const play = document.createElement("div");
         play.className = "play-icon";
@@ -1193,11 +1643,11 @@
 
         const title = document.createElement("h3");
         title.className = "card-title";
-        title.textContent = project.title;
+        title.textContent = project.title[currentLang];
 
         const desc = document.createElement("p");
         desc.className = "card-desc";
-        desc.textContent = project.desc;
+        desc.textContent = project.desc[currentLang];
 
         body.appendChild(title);
         body.appendChild(desc);
@@ -1210,28 +1660,33 @@
       });
     }
 
-    createVideoCards();
+    function rebuildVideos() {
+      videosCarousel.innerHTML = "";
+      createVideoCards();
+    }
 
     /* ============================
        CREAR FOTOS
        ============================ */
 
     function createPhotoGrid() {
-      photoItems.forEach(item => {
+      photoItems.forEach((item, index) => {
         const wrap = document.createElement("div");
         wrap.className = "photo-item";
+        wrap.dataset.index = index;
 
         const img = document.createElement("img");
         img.src = item.src;
-        img.alt = item.label || "Foto";
+        img.alt = item.label[currentLang] || "Foto";
 
         const overlay = document.createElement("div");
         overlay.className = "photo-overlay";
 
-        if (item.label) {
+        const labelText = item.label[currentLang];
+        if (labelText) {
           const label = document.createElement("div");
           label.className = "photo-label";
-          label.textContent = item.label;
+          label.textContent = labelText;
           overlay.appendChild(label);
         }
 
@@ -1239,17 +1694,50 @@
         wrap.appendChild(overlay);
         photosGridInner.appendChild(wrap);
 
-        // Ampliar foto al hacer clic
         wrap.addEventListener("click", () => {
+          const currentLabel = item.label[currentLang] || "";
           photoModalImg.src = item.src;
-          photoModalImg.alt = item.label || "Foto";
-          photoModalCaption.textContent = item.label || "";
+          photoModalImg.alt = currentLabel || "Foto";
+          photoModalCaption.textContent = currentLabel;
           photoModal.classList.add("open");
+          photoModal.dataset.index = index;
         });
       });
     }
 
-    createPhotoGrid();
+    function updatePhotoLabels() {
+      const items = document.querySelectorAll(".photo-item");
+      items.forEach((wrap) => {
+        const idx = parseInt(wrap.dataset.index, 10);
+        const item = photoItems[idx];
+        const overlay = wrap.querySelector(".photo-overlay");
+        let labelEl = overlay.querySelector(".photo-label");
+        const text = item.label[currentLang];
+
+        if (text) {
+          if (!labelEl) {
+            labelEl = document.createElement("div");
+            labelEl.className = "photo-label";
+            overlay.appendChild(labelEl);
+          }
+          labelEl.textContent = text;
+          labelEl.style.display = "";
+        } else if (labelEl) {
+          labelEl.textContent = "";
+          labelEl.style.display = "none";
+        }
+
+        const img = wrap.querySelector("img");
+        img.alt = text || "Foto";
+      });
+
+      if (photoModal.classList.contains("open") && photoModal.dataset.index !== undefined) {
+        const idx = parseInt(photoModal.dataset.index, 10);
+        const item = photoItems[idx];
+        photoModalCaption.textContent = item.label[currentLang] || "";
+        photoModalImg.alt = item.label[currentLang] || "Foto";
+      }
+    }
 
     /* ============================
        TOGGLE VIDEOS / FOTOS
@@ -1303,18 +1791,18 @@
       currentIndex = index;
       const project = projects[index];
 
-      detailTitle.textContent = project.title;
-      detailDesc.innerHTML = `<b>Resumen del proyecto:</b> ${project.desc}`;
+      detailTitle.textContent = project.title[currentLang];
+      detailDesc.innerHTML =
+        `<b>${i18nStatic[currentLang].detailSummaryPrefix}</b> ` +
+        project.desc[currentLang];
 
-      // cargos
       detailCargos.innerHTML = "";
-      project.cargos.forEach(c => {
+      project.cargos[currentLang].forEach(c => {
         const li = document.createElement("li");
         li.textContent = c;
         detailCargos.appendChild(li);
       });
 
-      // Miniatura grande desde YouTube
       detailVideoThumb.style.backgroundImage =
         `url("https://img.youtube.com/vi/${project.id}/maxresdefault.jpg")`;
       detailVideoThumb.dataset.url = project.url;
@@ -1325,7 +1813,6 @@
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
-    // Click en la miniatura grande -> abrir YouTube en nueva pestaña
     detailVideoThumb.addEventListener("click", () => {
       const url = detailVideoThumb.dataset.url;
       if (url) {
@@ -1333,7 +1820,6 @@
       }
     });
 
-    // Volver al listado
     btnBack.addEventListener("click", () => {
       detailView.style.display = "none";
       listView.style.display = "block";
@@ -1341,7 +1827,6 @@
       window.scrollTo({ top: listControls.offsetTop - 20, behavior: "smooth" });
     });
 
-    // Siguiente proyecto
     btnNext.addEventListener("click", () => {
       let nextIndex = currentIndex + 1;
       if (nextIndex >= projects.length) nextIndex = 0;
@@ -1356,6 +1841,7 @@
       photoModal.classList.remove("open");
       photoModalImg.src = "";
       photoModalCaption.textContent = "";
+      delete photoModal.dataset.index;
     }
 
     photoModalClose.addEventListener("click", closePhotoModal);
@@ -1366,9 +1852,39 @@
         closePhotoModal();
       }
     });
+
+    /* ============================
+       SWITCH DE IDIOMA
+       ============================ */
+
+    langButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const lang = btn.dataset.lang;
+        if (lang === currentLang) return;
+        currentLang = lang;
+
+        langButtons.forEach(b => b.classList.toggle("active", b === btn));
+
+        applyStaticText();
+        rebuildVideos();
+        updatePhotoLabels();
+        if (detailView.style.display === "block") {
+          openProject(currentIndex);
+        }
+      });
+    });
+
+    /* ============================
+       INIT
+       ============================ */
+
+    applyStaticText();
+    createVideoCards();
+    createPhotoGrid();
   </script>
 </body>
 </html>
+
 
 
 
