@@ -34,88 +34,82 @@
       min-height: 100vh;
     }
 
-    /* Contenedor del selector ES / EN */
-.lang-switch {
-  display: inline-flex;
-  align-items: center;
-  gap: 0;
-  padding: 3px;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.08), rgba(0, 0, 0, 0.6));
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
-  backdrop-filter: blur(10px);
-}
-
-/* Botón base */
-.lang-btn {
-  position: relative;
-  border: none;
-  outline: none;
-  background: transparent;
-  color: rgba(255, 255, 255, 0.75);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  padding: 6px 16px;
-  border-radius: 999px;
-  cursor: pointer;
-  transition:
-    background 0.18s ease,
-    color 0.18s ease,
-    box-shadow 0.18s ease,
-    transform 0.12s ease,
-    opacity 0.18s ease;
-  opacity: 0.7;
-  white-space: nowrap;
-}
-
-/* Hover estado no activo */
-.lang-btn:hover {
-  opacity: 1;
-  transform: translateY(-1px);
-}
-
-/* Estado activo (idioma seleccionado) */
-.lang-btn.active {
-  background: linear-gradient(135deg, #ff7ac4, #ffb86c);
-  color: #0b0b10;
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.3),
-    0 10px 25px rgba(0, 0, 0, 0.55);
-  opacity: 1;
-}
-
-/* Pequeño “focus ring” accesible */
-.lang-btn:focus-visible {
-  outline: 2px solid rgba(255, 255, 255, 0.6);
-  outline-offset: 2px;
-}
-
-/* Ajuste en pantallas pequeñas: juntar un poco con el resto */
-@media (max-width: 640px) {
-  .top-bar {
-    gap: 0.75rem;
-  }
-
-  .lang-switch {
-    order: 3; /* opcional: coloca el selector más al final en móvil */
-  }
-
-  .lang-btn {
-    padding: 5px 12px;
-    font-size: 10px;
-  }
-}
-
-
     a { color: inherit; text-decoration: none; }
 
     .page {
       max-width: 1200px;
       margin: 0 auto;
       padding: 24px 20px 64px;
+    }
+
+    /* Contenedor del selector ES / EN */
+    .lang-switch {
+      display: inline-flex;
+      align-items: center;
+      gap: 0;
+      padding: 3px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.08), rgba(0, 0, 0, 0.6));
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(10px);
+    }
+
+    .lang-btn {
+      position: relative;
+      border: none;
+      outline: none;
+      background: transparent;
+      color: rgba(255, 255, 255, 0.75);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition:
+        background 0.18s ease,
+        color 0.18s ease,
+        box-shadow 0.18s ease,
+        transform 0.12s ease,
+        opacity 0.18s ease;
+      opacity: 0.7;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      opacity: 1;
+      transform: translateY(-1px);
+    }
+
+    .lang-btn.active {
+      background: linear-gradient(135deg, #ff7ac4, #ffb86c);
+      color: #0b0b10;
+      box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.3),
+        0 10px 25px rgba(0, 0, 0, 0.55);
+      opacity: 1;
+    }
+
+    .lang-btn:focus-visible {
+      outline: 2px solid rgba(255, 255, 255, 0.6);
+      outline-offset: 2px;
+    }
+
+    @media (max-width: 640px) {
+      .top-bar {
+        gap: 0.75rem;
+      }
+
+      .lang-switch {
+        order: 3;
+      }
+
+      .lang-btn {
+        padding: 5px 12px;
+        font-size: 10px;
+      }
     }
 
     /* HEADER */
@@ -253,6 +247,7 @@
       position: relative;
       z-index: 2;
       padding: 8px 18px;
+      min-width: 92px;
       border-radius: 999px;
       font-size: 12px;
       letter-spacing: 0.16em;
@@ -273,7 +268,7 @@
       z-index: 1;
       top: 3px;
       bottom: 3px;
-      width: 50%;
+      width: calc(100% / 3);
       border-radius: 999px;
       background: linear-gradient(135deg, var(--accent), #ffb4f0);
       box-shadow: 0 6px 16px rgba(0, 0, 0, 0.8);
@@ -283,6 +278,7 @@
 
     .toggle-pill.videos-active .toggle-bg { transform: translateX(0); }
     .toggle-pill.photos-active .toggle-bg { transform: translateX(100%); }
+    .toggle-pill.vertical-active .toggle-bg { transform: translateX(200%); }
 
     /* CAROUSEL VIDEOS */
     .carousel-wrapper {
@@ -338,7 +334,7 @@
       .car-arrow { display: none; }
     }
 
-    /* VIDEO CARDS: 3 visibles en desktop */
+    /* VIDEO CARDS */
     .video-card {
       flex: 0 0 calc((100% - 2 * 24px) / 3);
       min-width: 260px;
@@ -438,7 +434,7 @@
       border-color: rgba(210, 139, 255, 0.6);
     }
 
-    /* FOTOS: contenedor vertical 2x2 */
+    /* FOTOS */
     .photos-section {
       margin-top: 10px;
     }
@@ -534,6 +530,151 @@
       transform: scale(1.05);
     }
 
+    /* VERTICAL CONTENT */
+    .vertical-section {
+      margin-top: 10px;
+    }
+
+    .vertical-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    @media (max-width: 980px) {
+      .vertical-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 760px) {
+      .vertical-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 520px) {
+      .vertical-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .vertical-card {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      min-height: 520px;
+      background: linear-gradient(180deg, #1a1224 0%, #0b0911 100%);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: var(--shadow-soft);
+      cursor: pointer;
+      transition: transform var(--transition-med), box-shadow var(--transition-med), border var(--transition-med);
+      display: flex;
+      flex-direction: column;
+      isolation: isolate;
+    }
+
+    .vertical-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 28px 70px rgba(0, 0, 0, 0.85);
+      border-color: rgba(255, 184, 240, 0.45);
+    }
+
+    .vertical-top {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      right: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .vertical-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.58);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-family: "Bebas Neue", system-ui, sans-serif;
+      color: #fff;
+      backdrop-filter: blur(8px);
+    }
+
+    .vertical-phone {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 9 / 16;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      overflow: hidden;
+    }
+
+    .vertical-phone::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.72), rgba(0,0,0,0.08) 45%, rgba(0,0,0,0.35));
+      z-index: 1;
+    }
+
+    .vertical-phone::after {
+      content: "▶";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 34px;
+      color: rgba(255,255,255,0.95);
+      width: 76px;
+      height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.42);
+      border: 1px solid rgba(255,255,255,0.2);
+      backdrop-filter: blur(6px);
+      padding-left: 4px;
+      z-index: 2;
+    }
+
+    .vertical-card-body {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 2;
+      padding: 18px 16px 16px;
+    }
+
+    .vertical-card-title {
+      font-family: "Bebas Neue", system-ui, sans-serif;
+      font-size: 22px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      line-height: 1.1;
+      margin-bottom: 8px;
+      color: #fff;
+      text-shadow: 0 8px 24px rgba(0,0,0,0.65);
+    }
+
+    .vertical-card-desc {
+      font-size: 13px;
+      color: rgba(245, 245, 255, 0.84);
+      line-height: 1.45;
+      text-shadow: 0 8px 24px rgba(0,0,0,0.65);
+    }
+
     /* DETAIL VIEW */
     .detail-view {
       display: none;
@@ -551,7 +692,7 @@
     }
 
     .detail-meta {
-      display: none; /* categoría oculta */
+      display: none;
     }
 
     .detail-title {
@@ -614,7 +755,6 @@
       background: #000;
     }
 
-    /* Miniatura grande en la vista de detalle */
     .detail-video-thumb {
       position: relative;
       width: 100%;
@@ -645,6 +785,7 @@
       justify-content: center;
       background: rgba(0, 0, 0, 0.7);
       backdrop-filter: blur(8px);
+      z-index: 2;
     }
 
     .detail-video-play::before {
@@ -653,6 +794,24 @@
       border-width: 12px 0 12px 18px;
       border-color: transparent transparent transparent #ffffff;
       margin-left: 4px;
+    }
+
+    .detail-video.vertical-mode .detail-video-thumb {
+      aspect-ratio: 9 / 16;
+      max-width: 420px;
+      margin: 0 auto;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .detail-video.vertical-mode .detail-video-thumb::after {
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.45), transparent 55%);
+    }
+
+    .detail-video.vertical-mode .detail-video-play {
+      width: 76px;
+      height: 76px;
     }
 
     .detail-text {
@@ -737,7 +896,7 @@
       .about { grid-template-columns: 1fr; }
     }
 
-    /* PHOTO MODAL (AMPLIAR FOTO) */
+    /* PHOTO MODAL */
     .photo-modal {
       position: fixed;
       inset: 0;
@@ -812,7 +971,7 @@
 <body>
   <div class="page">
     <!-- TOP BAR -->
-    <header class=" top-bar">
+    <header class="top-bar">
       <div class="brand" id="brand">
         NATALIA TEGEL – VIDEO & PHOTOGRAPHY PORTFOLIO
       </div>
@@ -865,6 +1024,7 @@
         <div class="toggle-bg"></div>
         <button class="toggle-btn active" data-target="videos" id="toggleVideos">Videos</button>
         <button class="toggle-btn" data-target="photos" id="togglePhotos">Fotos</button>
+        <button class="toggle-btn" data-target="vertical" id="toggleVertical">Vertical</button>
       </div>
     </div>
 
@@ -887,6 +1047,11 @@
           <button class="photos-arrow down" id="photosDown">↓</button>
         </div>
       </section>
+
+      <!-- VERTICAL CONTENT -->
+      <section class="vertical-section" id="verticalSection" style="display:none;">
+        <div class="vertical-grid" id="verticalGrid"></div>
+      </section>
     </section>
 
     <!-- DETAIL VIEW -->
@@ -904,7 +1069,7 @@
 
       <div class="detail-layout">
         <div>
-          <div class="detail-video">
+          <div class="detail-video" id="detailVideoBox">
             <div class="detail-video-thumb" id="detailVideoThumb">
               <div class="detail-video-play"></div>
             </div>
@@ -992,11 +1157,9 @@
   </div>
 
   <script>
-    /* ============================
-       MULTI-IDIOMA
-       ============================ */
-
     let currentLang = "es";
+    let currentMediaType = "videos";
+    let currentIndex = 0;
 
     const i18nStatic = {
       es: {
@@ -1018,11 +1181,13 @@
         projectsSubtitle: "Desliza hacia abajo para ver mis proyectos",
         toggleVideos: "Videos",
         togglePhotos: "Fotos",
+        toggleVertical: "Vertical",
         btnBack: "← Volver al listado",
         btnNext: "Siguiente proyecto →",
         detailCargosTitle: "Cargos",
         detailSummaryPrefix: "Resumen del proyecto:",
         cardTagVideo: "Video",
+        cardTagVertical: "Reel",
         aboutTitle: "Sobre mí",
         aboutP1:
           "Soy Natalia, editora de vídeo y videógrafa. He trabajado en proyectos para creadores, marcas y eventos, " +
@@ -1082,11 +1247,13 @@
         projectsSubtitle: "Scroll down to see my projects",
         toggleVideos: "Videos",
         togglePhotos: "Photos",
+        toggleVertical: "Vertical",
         btnBack: "← Back to list",
         btnNext: "Next project →",
         detailCargosTitle: "Roles",
         detailSummaryPrefix: "Project summary:",
         cardTagVideo: "Video",
+        cardTagVertical: "Reel",
         aboutTitle: "About me",
         aboutP1:
           "I'm Natalia, a video editor and videographer. I've worked on projects for creators, brands, and events, " +
@@ -1129,7 +1296,7 @@
     };
 
     /* ============================
-       DATA: PROYECTOS DE VÍDEO (ES / EN)
+       DATA: PROYECTOS DE VÍDEO
        ============================ */
 
     const projects = [
@@ -1472,7 +1639,183 @@
     ];
 
     /* ============================
-       DATA: FOTOS (.jpg) (labels ES / EN)
+       DATA: CONTENIDO VERTICAL
+       ============================ */
+
+    const verticalProjects = [
+      {
+        url: "https://www.instagram.com/reel/DFfyrGMMrD-/",
+        thumb: "https://i.gyazo.com/38b963c555188b4671619fea30242b50.png",
+        title: { es: "TIKTOK MARTA", en: "TIKTOK MARTA" },
+        desc: {
+          es: "Pieza de contenido vertical para redes sociales publicada en formato reel.",
+          en: "Vertical social media piece published as a reel."
+        },
+        cargos: {
+          es: ["Edición", "Contenido vertical", "Social media"],
+          en: ["Editing", "Vertical content", "Social media"]
+        }
+      },
+      {
+        url: "https://www.instagram.com/reel/DFfr_woTq6h/",
+        thumb: "https://i.gyazo.com/12ce99405b6bc9c092bf044934352ec9.png",
+        title: { es: "TIKTOK KARCHEZ", en: "TIKTOK KARCHEZ" },
+        desc: {
+          es: "Contenido vertical pensado para consumo rápido en redes y formato reel.",
+          en: "Vertical content designed for quick social media consumption in reel format."
+        },
+        cargos: {
+          es: ["Edición", "Contenido vertical", "Social media"],
+          en: ["Editing", "Vertical content", "Social media"]
+        }
+      },
+      {
+        url: "https://www.instagram.com/atletiesports/reel/C29oDSLsgi4/",
+        thumb: "https://i.gyazo.com/d4829516ab8d18d1e5231c47d35e297a.png",
+        title: { es: "ATLETI CAMISETA PROMO", en: "ATLETI JERSEY PROMO" },
+        desc: {
+          es: "Promo vertical para redes sociales centrada en producto y presentación visual.",
+          en: "Vertical social media promo focused on product and visual presentation."
+        },
+        cargos: {
+          es: ["Edición", "Promo", "Contenido vertical"],
+          en: ["Editing", "Promo", "Vertical content"]
+        }
+      },
+      {
+        url: "https://www.instagram.com/reel/DL7ndifNu3A/",
+        thumb: "https://i.gyazo.com/cec2a188dfd45655b322b6d840dc2baf.png",
+        title: { es: "ESENCIALES KARCHEZ", en: "KARCHEZ ESSENTIALS" },
+        desc: {
+          es: "Reel de la serie de esenciales adaptado a formato vertical para plataformas sociales.",
+          en: "Essentials series reel adapted to vertical format for social platforms."
+        },
+        cargos: {
+          es: ["Edición", "Adaptación vertical", "Social media"],
+          en: ["Editing", "Vertical adaptation", "Social media"]
+        }
+      },
+      {
+        url: "https://www.instagram.com/reel/DLSjdtitCD4/",
+        thumb: "https://i.gyazo.com/1ccfa3895c6c621adecd4221042c8bf1.png",
+        title: { es: "MEDICOS DEL MUNDO INTRO", en: "DOCTORS OF THE WORLD INTRO" },
+        desc: {
+          es: "Intro en formato reel para campaña social, optimizada para contenido vertical.",
+          en: "Reel intro for a social campaign, optimized for vertical content."
+        },
+        cargos: {
+          es: ["Edición", "Contenido de marca", "Formato vertical"],
+          en: ["Editing", "Branded content", "Vertical format"]
+        }
+      },
+      {
+        url: "https://www.instagram.com/reel/DGN5gmwtGzj/",
+        thumb: "https://i.gyazo.com/3431bc3d74679cd0e52d0e79653bcc68.png",
+        title: { es: "TECLADO RAZER", en: "RAZER KEYBOARD" },
+        desc: {
+          es: "Pieza vertical de producto para redes, centrada en dinamismo y ritmo de montaje.",
+          en: "Vertical product piece for social media, focused on dynamic pacing and editing rhythm."
+        },
+        cargos: {
+          es: ["Edición", "Producto", "Contenido vertical"],
+          en: ["Editing", "Product", "Vertical content"]
+        }
+      },
+      {
+        url: "https://www.instagram.com/reel/DGDWzlWNWIT/",
+        thumb: "https://i.gyazo.com/6199bfedcad56c47e057aeff88f78c07.png",
+        title: { es: "PERPLEXITY", en: "PERPLEXITY" },
+        desc: {
+          es: "Promo vertical para redes adaptada a lenguaje rápido y visual de reel.",
+          en: "Vertical promo for social media adapted to fast-paced reel language."
+        },
+        cargos: {
+          es: ["Edición", "Promo", "Social media"],
+          en: ["Editing", "Promo", "Social media"]
+        }
+      },
+      {
+        url: "https://www.instagram.com/reel/DFvSs2Xz2Zm/",
+        thumb: "https://i.gyazo.com/286cd781c91b83d99efdad9d86c0ca2b.png",
+        title: { es: "PREGUNTAS Y RESPUESTAS SUPERLIGA", en: "SUPERLIGA Q&A" },
+        desc: {
+          es: "Formato de preguntas y respuestas editado para publicación vertical en redes.",
+          en: "Q&A format edited for vertical publishing on social platforms."
+        },
+        cargos: {
+          es: ["Edición", "Formato vertical", "Social media"],
+          en: ["Editing", "Vertical format", "Social media"]
+        }
+      },
+      {
+        url: "https://www.instagram.com/reel/DD9dvbmNcvc/",
+        thumb: "https://i.gyazo.com/c5f421c3b8193d1c17477cf101605c32.png",
+        title: { es: "CUESTIONARIO MAHOU NAVIDAD LEC", en: "MAHOU CHRISTMAS LEC QUIZ" },
+        desc: {
+          es: "Contenido branded en vertical con enfoque ágil y ritmo de reel.",
+          en: "Branded vertical content with an agile structure and reel pacing."
+        },
+        cargos: {
+          es: ["Edición", "Branded content", "Reel"],
+          en: ["Editing", "Branded content", "Reel"]
+        }
+      },
+      {
+        url: "https://www.instagram.com/reel/DC39GOYNTdS/",
+        thumb: "https://i.gyazo.com/914c1d198f5389f0d02cb597f3469201.png",
+        title: { es: "PODCAST MAHOU", en: "MAHOU PODCAST" },
+        desc: {
+          es: "Versión vertical para redes de una pieza de podcast, pensada para clips cortos.",
+          en: "Vertical social version of a podcast piece, designed for short-form clips."
+        },
+        cargos: {
+          es: ["Edición", "Clip social", "Formato vertical"],
+          en: ["Editing", "Social clip", "Vertical format"]
+        }
+      },
+      {
+        url: "https://www.instagram.com/reel/DAYPzhPSqlQ/",
+        thumb: "https://i.gyazo.com/db1b0f80b9c9118ce05fe146121184dd.png",
+        title: { es: "FTTR MOVISTAR", en: "FTTR MOVISTAR" },
+        desc: {
+          es: "Pieza vertical para redes, editada para maximizar impacto visual en móvil.",
+          en: "Vertical social media piece edited to maximize mobile visual impact."
+        },
+        cargos: {
+          es: ["Edición", "Social media", "Mobile-first"],
+          en: ["Editing", "Social media", "Mobile-first"]
+        }
+      },
+      {
+        url: "https://www.instagram.com/reel/DC61yGUN1L8/",
+        thumb: "https://i.gyazo.com/04a551dc0b77ac2ff809cab64158ddd2.png",
+        title: { es: "ECOEMBES SORTEO", en: "ECOEMBES GIVEAWAY" },
+        desc: {
+          es: "Reel promocional de sorteo adaptado a un formato claro, directo y visual.",
+          en: "Promotional giveaway reel adapted to a clear, direct and visual format."
+        },
+        cargos: {
+          es: ["Edición", "Promo", "Contenido vertical"],
+          en: ["Editing", "Promo", "Vertical content"]
+        }
+      },
+      {
+        url: "https://www.instagram.com/reel/DLDE9vVtPUe/",
+        thumb: "https://i.gyazo.com/2f2c985551f31f7e898c7b394f56243b.png",
+        title: { es: "ESENCIALES BLACK", en: "BLACK ESSENTIALS" },
+        desc: {
+          es: "Contenido vertical de la serie de esenciales, optimizado para publicación en reel.",
+          en: "Vertical content from the essentials series, optimized for reel publishing."
+        },
+        cargos: {
+          es: ["Edición", "Serie de esenciales", "Formato vertical"],
+          en: ["Editing", "Essentials series", "Vertical format"]
+        }
+      }
+    ];
+
+    /* ============================
+       DATA: FOTOS
        ============================ */
 
     const photoItems = [
@@ -1541,8 +1884,12 @@
     const photosSection = document.getElementById("photosSection");
     const photosGridInner = document.getElementById("photosGridInner");
     const photosGrid = document.getElementById("photosGrid");
+    const verticalSection = document.getElementById("verticalSection");
+    const verticalGrid = document.getElementById("verticalGrid");
+
     const togglePill = document.getElementById("mediaToggle");
     const toggleButtons = togglePill.querySelectorAll(".toggle-btn");
+
     const listView = document.getElementById("listView");
     const detailView = document.getElementById("detailView");
     const listControls = document.getElementById("listControls");
@@ -1554,6 +1901,7 @@
     const detailCargos = document.getElementById("detailCargos");
     const detailVideoThumb = document.getElementById("detailVideoThumb");
     const detailCargosTitle = document.getElementById("detailCargosTitle");
+    const detailVideoBox = document.getElementById("detailVideoBox");
 
     const carLeft = document.getElementById("carLeft");
     const carRight = document.getElementById("carRight");
@@ -1581,6 +1929,7 @@
       projectsSubtitle: document.getElementById("projectsSubtitle"),
       toggleVideos: document.getElementById("toggleVideos"),
       togglePhotos: document.getElementById("togglePhotos"),
+      toggleVertical: document.getElementById("toggleVertical"),
       btnBack: document.getElementById("btnBack"),
       btnNext: document.getElementById("btnNext"),
       detailCargosTitle: document.getElementById("detailCargosTitle"),
@@ -1599,10 +1948,8 @@
       contactBlock: document.getElementById("contactBlock")
     };
 
-    let currentIndex = 0;
-
     /* ============================
-       FUNCIONES I18N
+       I18N
        ============================ */
 
     function applyStaticText() {
@@ -1615,7 +1962,7 @@
     }
 
     /* ============================
-       CREAR TARJETAS DE VÍDEO
+       VIDEO CARDS
        ============================ */
 
     function createVideoCards() {
@@ -1655,7 +2002,7 @@
         card.appendChild(thumb);
         card.appendChild(body);
 
-        card.addEventListener("click", () => openProject(index));
+        card.addEventListener("click", () => openProject(index, "videos"));
         videosCarousel.appendChild(card);
       });
     }
@@ -1666,7 +2013,63 @@
     }
 
     /* ============================
-       CREAR FOTOS
+       VERTICAL CARDS
+       ============================ */
+
+    function createVerticalCards() {
+      verticalProjects.forEach((project, index) => {
+        const card = document.createElement("article");
+        card.className = "vertical-card";
+        card.dataset.index = index;
+
+        const top = document.createElement("div");
+        top.className = "vertical-top";
+
+        const badge = document.createElement("span");
+        badge.className = "vertical-badge";
+        badge.textContent = i18nStatic[currentLang].cardTagVertical;
+
+        const hint = document.createElement("span");
+        hint.className = "vertical-badge";
+        hint.textContent = "Instagram";
+
+        top.appendChild(badge);
+        top.appendChild(hint);
+
+        const phone = document.createElement("div");
+        phone.className = "vertical-phone";
+        phone.style.backgroundImage = `url("${project.thumb}")`;
+
+        const body = document.createElement("div");
+        body.className = "vertical-card-body";
+
+        const title = document.createElement("h3");
+        title.className = "vertical-card-title";
+        title.textContent = project.title[currentLang];
+
+        const desc = document.createElement("p");
+        desc.className = "vertical-card-desc";
+        desc.textContent = project.desc[currentLang];
+
+        body.appendChild(title);
+        body.appendChild(desc);
+
+        card.appendChild(top);
+        card.appendChild(phone);
+        card.appendChild(body);
+
+        card.addEventListener("click", () => openProject(index, "vertical"));
+        verticalGrid.appendChild(card);
+      });
+    }
+
+    function rebuildVerticalCards() {
+      verticalGrid.innerHTML = "";
+      createVerticalCards();
+    }
+
+    /* ============================
+       PHOTO GRID
        ============================ */
 
     function createPhotoGrid() {
@@ -1740,71 +2143,86 @@
     }
 
     /* ============================
-       TOGGLE VIDEOS / FOTOS
+       TOGGLE SECTIONS
        ============================ */
+
+    function setActiveSection(target) {
+      currentMediaType = target;
+
+      toggleButtons.forEach(b => b.classList.toggle("active", b.dataset.target === target));
+      togglePill.classList.remove("videos-active", "photos-active", "vertical-active");
+      togglePill.classList.add(`${target}-active`);
+
+      document.getElementById("videosSection").style.display = target === "videos" ? "block" : "none";
+      photosSection.style.display = target === "photos" ? "block" : "none";
+      verticalSection.style.display = target === "vertical" ? "block" : "none";
+    }
 
     toggleButtons.forEach(btn => {
       btn.addEventListener("click", () => {
-        const target = btn.dataset.target;
-
-        toggleButtons.forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-
-        if (target === "videos") {
-          togglePill.classList.add("videos-active");
-          togglePill.classList.remove("photos-active");
-          document.getElementById("videosSection").style.display = "block";
-          photosSection.style.display = "none";
-        } else {
-          togglePill.classList.add("photos-active");
-          togglePill.classList.remove("videos-active");
-          document.getElementById("videosSection").style.display = "none";
-          photosSection.style.display = "block";
-        }
+        setActiveSection(btn.dataset.target);
       });
     });
 
     /* ============================
-       CAROUSEL VIDEOS
+       CAROUSEL / SCROLL
        ============================ */
 
     carLeft.addEventListener("click", () => {
       videosCarousel.scrollBy({ left: -360, behavior: "smooth" });
     });
+
     carRight.addEventListener("click", () => {
       videosCarousel.scrollBy({ left: 360, behavior: "smooth" });
     });
 
-    /* Carrusel vertical de fotos */
     photosUp.addEventListener("click", () => {
       photosGrid.scrollBy({ top: -220, behavior: "smooth" });
     });
+
     photosDown.addEventListener("click", () => {
       photosGrid.scrollBy({ top: 220, behavior: "smooth" });
     });
 
     /* ============================
-       DETALLE DE PROYECTO (GALERÍA)
+       DETAIL VIEW
        ============================ */
 
-    function openProject(index) {
+    function getCurrentCollection(type) {
+      return type === "vertical" ? verticalProjects : projects;
+    }
+
+    function openProject(index, type = "videos") {
       currentIndex = index;
-      const project = projects[index];
+      currentMediaType = type;
+
+      const collection = getCurrentCollection(type);
+      const project = collection[index];
 
       detailTitle.textContent = project.title[currentLang];
       detailDesc.innerHTML =
         `<b>${i18nStatic[currentLang].detailSummaryPrefix}</b> ` +
         project.desc[currentLang];
 
+      detailCargosTitle.innerHTML = i18nStatic[currentLang].detailCargosTitle;
       detailCargos.innerHTML = "";
+
       project.cargos[currentLang].forEach(c => {
         const li = document.createElement("li");
         li.textContent = c;
         detailCargos.appendChild(li);
       });
 
-      detailVideoThumb.style.backgroundImage =
-        `url("https://img.youtube.com/vi/${project.id}/maxresdefault.jpg")`;
+      detailVideoBox.classList.remove("vertical-mode");
+
+      if (type === "vertical") {
+        detailVideoBox.classList.add("vertical-mode");
+        detailVideoThumb.style.backgroundImage = `url("${project.thumb}")`;
+      } else {
+        detailVideoThumb.style.backgroundImage =
+          `url("https://img.youtube.com/vi/${project.id}/maxresdefault.jpg")`;
+      }
+
       detailVideoThumb.dataset.url = project.url;
 
       listView.style.display = "none";
@@ -1824,17 +2242,19 @@
       detailView.style.display = "none";
       listView.style.display = "block";
       listControls.style.display = "flex";
+      setActiveSection(currentMediaType);
       window.scrollTo({ top: listControls.offsetTop - 20, behavior: "smooth" });
     });
 
     btnNext.addEventListener("click", () => {
+      const collection = getCurrentCollection(currentMediaType);
       let nextIndex = currentIndex + 1;
-      if (nextIndex >= projects.length) nextIndex = 0;
-      openProject(nextIndex);
+      if (nextIndex >= collection.length) nextIndex = 0;
+      openProject(nextIndex, currentMediaType);
     });
 
     /* ============================
-       PHOTO MODAL (AMPLIAR)
+       PHOTO MODAL
        ============================ */
 
     function closePhotoModal() {
@@ -1854,22 +2274,26 @@
     });
 
     /* ============================
-       SWITCH DE IDIOMA
+       LANGUAGE SWITCH
        ============================ */
 
     langButtons.forEach(btn => {
       btn.addEventListener("click", () => {
         const lang = btn.dataset.lang;
         if (lang === currentLang) return;
-        currentLang = lang;
 
+        currentLang = lang;
         langButtons.forEach(b => b.classList.toggle("active", b === btn));
 
         applyStaticText();
         rebuildVideos();
+        rebuildVerticalCards();
         updatePhotoLabels();
+
         if (detailView.style.display === "block") {
-          openProject(currentIndex);
+          openProject(currentIndex, currentMediaType);
+        } else {
+          setActiveSection(currentMediaType);
         }
       });
     });
@@ -1881,11 +2305,11 @@
     applyStaticText();
     createVideoCards();
     createPhotoGrid();
+    createVerticalCards();
+    setActiveSection("videos");
   </script>
 </body>
 </html>
-
-
 
 
 
